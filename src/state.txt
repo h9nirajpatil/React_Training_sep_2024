@@ -1,0 +1,17 @@
+In functional components (normal components), you can update props-like behavior using state with the useState hook. Similar to class components, the props themselves are immutable, so you'll need to manage the state in the parent component and pass it as props to the child component.
+
+How this works:
+ParentComponent (Functional):
+
+useState hook is used to manage the state of the message.
+Initially, message is "Hello from Parent!".
+A button is provided that triggers the updateMessage function, which changes the state using setMessage.
+The updated state is passed as a prop to the ChildComponent, causing it to re-render with the new message.
+ChildComponent (Functional):
+
+It receives the message and user props and displays them.
+Since functional components automatically re-render when props change, the new message will be displayed when the button is clicked.
+Key Points:
+The state in the ParentComponent is updated via the useState hook.
+The updated state is passed as props to the ChildComponent, which re-renders whenever the props change.
+This demonstrates how you can update the props in functional components by updating the state in the parent.
