@@ -3,6 +3,8 @@ import Firstcomponent from "./Firstcomponent";
 import PPage from "./PPage";
 import UpdateP from "./UpadateP";
 import Count from "./Count";
+import Conditional from "./Conditional";
+import Handlingevent from "./Handlingevent";
 
 function App() {
   //   let data = "John";
@@ -19,6 +21,8 @@ function App() {
       <PPage />
       <UpdateP />
       <Count />
+      <Conditional />
+      <Handlingevent />
     </div>
   );
 }
