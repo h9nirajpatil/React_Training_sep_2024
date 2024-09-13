@@ -1,0 +1,50 @@
+5. Passing Functions as Props (Event Handling)
+You can pass functions as props to child components to handle events in a centralized way, especially when the logic resides in the parent component.
+
+Example of Passing Functions as Props:
+
+// Parent Component (App.js)
+import React, { useState } from 'react';
+import ChildComponent from './ChildComponent';
+
+function App() {
+  const [message, setMessage] = useState("Initial Message");
+
+  // Function to update the message
+  const updateMessage = (newMessage) => {
+    setMessage(newMessage);
+  };
+
+  return (
+    <div>
+      <h1>Passing Functions as Props</h1>
+      <p>Message: {message}</p>
+      <ChildComponent updateMessage={updateMessage} />
+    </div>
+  );
+}
+
+export default App;
+
+// Child Component (ChildComponent.js)
+import React from 'react';
+
+function ChildComponent({ updateMessage }) {
+  const handleClick = () => {
+    updateMessage("Updated Message from Child!");
+  };
+
+  return (
+    <div>
+      <h2>Child Component</h2>
+      <button onClick={handleClick}>Update Message</button>
+    </div>
+  );
+}
+
+export default ChildComponent;
+
+
+Explanation:
+The App component manages the state message and passes the updateMessage function as a prop to ChildComponent.
+When the button in the ChildComponent is clicked, the handleClick function calls updateMessage with a new message, updating the state in the parent.

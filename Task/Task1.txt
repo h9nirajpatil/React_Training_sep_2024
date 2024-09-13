@@ -1,0 +1,14 @@
+Create a simple project where:
+The state manages a user’s profile (name, email).
+The props pass this data from the parent component to a child component.
+There is an event handler to change the profile data on form submission.
+Use conditional rendering to show a message when the user is logged in or out.
+Simple Project Structure:
+src/
+│
+├── components/
+│   ├── ProfileForm.js  # Form for updating user profile
+│   └── UserProfile.js  # Component to display the user's profile
+│
+├── App.js              # Parent component managing state and props
+└── index.js            # Main entry point

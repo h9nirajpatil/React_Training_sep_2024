@@ -1,0 +1,58 @@
+In React, props (short for "properties") are used to pass data from one component to another, typically from a parent component to a child component. They are similar to function arguments in JavaScript and allow components to be dynamic and reusable.
+
+What are Props?
+Props are immutable: Once passed to a component, they cannot be changed by the component receiving them.
+Props are read-only: The child component that receives the props can only read and display the data, but it cannot modify them.
+Passed from parent to child: Props allow communication between components, where the parent component can pass data or functions to the child component.
+Use of Props
+Props are mainly used for:
+
+Displaying dynamic data in child components.
+Making components reusable by passing different data for each instance.
+Handling events: Passing event handlers (functions) from parent to child components to allow user interactions.
+
+How this works:
+ParentComponent passes a message and a user object to ChildComponent via props.
+ChildComponent receives these props and uses them to display dynamic data.
+Key Points:
+You can pass any data type using props: strings, numbers, objects, arrays, or even functions.
+Props help you keep components isolated and reusable by allowing different pieces of data to be passed into the same component.
+-------------------------------------------------------------------------------------------------------------------------------
+1. Props in React
+Props are used to pass data from one component to another. They are read-only and passed from the parent component to the child component. Think of props as the parameters you pass to a function.
+
+Example of Props:
+// Parent Component (App.js)
+import React from 'react';
+import ChildComponent from './ChildComponent';
+
+function App() {
+  const message = "Hello from Parent!";
+  const user = { name: "Niraj", age: 25 };
+
+  return (
+    <div>
+      <h1>Parent Component</h1>
+      {/* Passing props to ChildComponent */}
+      <ChildComponent message={message} user={user} />
+    </div>
+  );
+}
+// Child Component (ChildComponent.js)
+import React from 'react';
+
+function ChildComponent(props) {
+  return (
+    <div>
+      <h2>Child Component</h2>
+      <p>Message: {props.message}</p>
+      <p>User Name: {props.user.name}</p>
+      <p>User Age: {props.user.age}</p>
+    </div>
+  );
+}
+
+export default ChildComponent;
+Explanation:
+The App component is the parent and passes message and user as props to the ChildComponent.
+The ChildComponent accesses these props using props.message and props.user.

@@ -1,0 +1,36 @@
+3. Conditional Rendering in React
+Conditional rendering allows you to render different components or elements based on a condition.
+
+Example of Conditional Rendering:
+
+// Parent Component (App.js)
+import React, { useState } from 'react';
+
+function App() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  const toggleLogin = () => {
+    setIsLoggedIn(!isLoggedIn);
+  };
+
+  return (
+    <div>
+      <h1>Conditional Rendering Example</h1>
+      {isLoggedIn ? (
+        <p>Welcome back, Niraj!</p>
+      ) : (
+        <p>Please log in.</p>
+      )}
+      <button onClick={toggleLogin}>
+        {isLoggedIn ? "Log Out" : "Log In"}
+      </button>
+    </div>
+  );
+}
+
+export default App;
+
+Explanation:
+isLoggedIn is a boolean state that determines whether the user is logged in or not.
+Based on the value of isLoggedIn, either "Welcome back" or "Please log in" is displayed.
+The button's text also changes based on the isLoggedIn state, toggling between "Log In" and "Log Out".

@@ -1,0 +1,45 @@
+4. Handling Events in React
+Event handling in React works similarly to how it works in plain JavaScript. You can handle events like onClick, onChange, onSubmit, etc.
+
+Example of Event Handling:
+
+// Parent Component (App.js)
+import React, { useState } from 'react';
+
+function App() {
+  const [inputValue, setInputValue] = useState('');
+
+  // Function to handle input change
+  const handleInputChange = (event) => {
+    setInputValue(event.target.value);
+  };
+
+  // Function to handle form submission
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    alert(`Submitted value: ${inputValue}`);
+  };
+
+  return (
+    <div>
+      <h1>Event Handling Example</h1>
+      <form onSubmit={handleSubmit}>
+        <input 
+          type="text" 
+          value={inputValue} 
+          onChange={handleInputChange} 
+          placeholder="Type something..." 
+        />
+        <button type="submit">Submit</button>
+      </form>
+      <p>Current Input: {inputValue}</p>
+    </div>
+  );
+}
+
+export default App;
+
+Explanation:
+handleInputChange updates the inputValue state whenever the user types in the input field.
+handleSubmit prevents the default form submission and displays an alert with the submitted value.
+The onChange and onSubmit event handlers allow you to respond to user interactions like typing and form submission.
