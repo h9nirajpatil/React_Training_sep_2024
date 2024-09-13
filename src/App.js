@@ -2,6 +2,7 @@ import User from "./User";
 import Firstcomponent from "./Firstcomponent";
 import PPage from "./PPage";
 import UpdateP from "./UpadateP";
+import Count from "./Count";
 
 function App() {
   //   let data = "John";
@@ -17,6 +18,7 @@ function App() {
       <Firstcomponent />
       <PPage />
       <UpdateP />
+      <Count />
     </div>
   );
 }
