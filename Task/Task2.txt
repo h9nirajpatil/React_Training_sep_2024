@@ -1,0 +1,54 @@
+1. React Basics & JSX
+Assignment: Build a profile card component using JSX.
+Create a functional component ProfileCard that accepts the following props: name, age, location, and bio.
+Display these details inside a card-like structure.
+Use inline CSS and a separate CSS file to style the card.
+Add a button inside the card to "Show More" or "Show Less" based on a showMore boolean state. Toggle this on click.
+Requirements:
+Understand JSX syntax for rendering elements.
+Use dynamic expressions within JSX.
+Utilize CSS-in-JS or external stylesheets for styling.
+2. Props
+Assignment: Create a blog post feed using a list of post data.
+Create a parent BlogFeed component that passes blog data to a child Post component via props.
+Each post should display a title, author, content preview (first 100 characters), and a "Read More" button that displays the full content when clicked.
+Use props to pass individual post details like title, content, and author.
+Requirements:
+Properly use props to pass and display data.
+Demonstrate passing functions as props for interactive functionality.
+3. Class Components & Functional Components
+Assignment: Convert a class-based counter to a functional component using hooks.
+First, create a Counter component using a Class Component. It should have:
+A count state initialized to 0.
+Buttons to increment and decrement the count.
+A button to reset the count to 0.
+Now, convert this class component into a Functional Component using the useState hook.
+Requirements:
+Implement a stateful class component.
+Understand how to refactor class components to functional components with hooks.
+4. Conditional Rendering
+Assignment: Create a login system using conditional rendering.
+Build a LoginSystem component that conditionally renders either a login form or a welcome message.
+The form should include fields for username and password.
+After successful login (dummy validation), display a "Welcome [Username]" message with a "Logout" button.
+On clicking "Logout," display the login form again.
+Requirements:
+Utilize conditional rendering effectively (if conditions, ternary operators).
+Manage form states using React hooks or class-based states.
+5. useState Hook
+Assignment: Create a simple to-do list using the useState hook.
+Create a ToDoApp functional component that allows the user to:
+Add new tasks.
+Mark tasks as completed (strike-through).
+Remove tasks.
+Display the list of tasks and allow toggling between completed and uncompleted states.
+Requirements:
+Manage an array of tasks using the useState hook.
+Demonstrate dynamic updates of the component's state.
+Stretch Assignment (Combine Everything):
+Build a Dashboard with multiple components and features:
+Build a Dashboard component that combines:
+A ProfileCard component (from Assignment 1).
+A TaskManager component for to-dos (from Assignment 5).
+A Notifications component (use conditional rendering to show notifications when tasks are completed).
+Create a ThemeToggle button that toggles between dark and light modes, using a state to store the current theme.
