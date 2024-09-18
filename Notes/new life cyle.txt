@@ -1,0 +1,187 @@
+Lifecycle Methods (Class Components):
+componentDidMount():
+
+Invoked immediately after a component is mounted (inserted into the DOM).
+Commonly used for side effects like fetching data, setting up subscriptions, or manipulating the DOM.
+Example:
+class MyComponent extends React.Component {
+  componentDidMount() {
+    // API call or DOM manipulation can happen here
+    console.log("Component mounted!");
+  }
+  render() {
+    return <div>Hello, World!</div>;
+  }
+}
+
+
+--------------------------------------------------------------------------------
+
+
+componentDidUpdate(prevProps, prevState):
+
+Called after the component updates due to changes in state or props.
+Used to perform updates based on prop or state changes, like fetching new data when a prop changes.
+Example:
+
+class MyComponent extends React.Component {
+  componentDidUpdate(prevProps) {
+    if (prevProps.data !== this.props.data) {
+      // Perform some action when props change
+      console.log("Data updated!");
+    }
+  }
+  render() {
+    return <div>Data: {this.props.data}</div>;
+  }
+}
+
+------------------------------------------------------------------------------------
+
+componentWillUnmount():
+
+Invoked just before a component is unmounted and destroyed.
+Useful for cleaning up, like unsubscribing from event listeners or canceling network requests.
+Example:
+
+class MyComponent extends React.Component {
+  componentWillUnmount() {
+    // Clean up any resources here
+    console.log("Component will unmount!");
+  }
+  render() {
+    return <div>Hello, World!</div>;
+  }
+}
+
+------------------------------------------------------------------------------------
+
+Hooks:
+useState:
+
+Manages state in functional components. It returns an array with the current state and a function to update it.
+
+Example:
+
+import React, { useState } from 'react';
+
+function Counter() {
+  const [count, setCount] = useState(0);
+
+  return (
+    <div>
+      <p>You clicked {count} times</p>
+      <button onClick={() => setCount(count + 1)}>
+        Click me
+      </button>
+    </div>
+  );
+}
+
+--------------------------------------------------------------------------------
+
+useEffect:
+
+Handles side effects in functional components, like fetching data, setting up subscriptions, or manipulating the DOM. It runs after the render.
+
+Example:
+
+import React, { useEffect, useState } from 'react';
+
+function FetchData() {
+  const [data, setData] = useState(null);
+
+  useEffect(() => {
+    fetch('https://api.example.com/data')
+      .then(response => response.json())
+      .then(data => setData(data));
+  }, []); // Empty array ensures the effect runs once on mount
+
+  return <div>{data ? data.name : "Loading..."}</div>;
+}
+
+--------------------------------------------------------------------------------
+
+useContext:
+
+Simplifies the process of accessing global state without passing props down the component tree.
+
+Example:
+
+const ThemeContext = React.createContext();
+
+function ThemedComponent() {
+  const theme = useContext(ThemeContext);
+  return <div style={{ background: theme.background }}>Hello</div>;
+}
+
+function App() {
+  const theme = { background: 'black' };
+  return (
+    <ThemeContext.Provider value={theme}>
+      <ThemedComponent />
+    </ThemeContext.Provider>
+  );
+}
+
+-----------------------------------------------------------------------------------
+
+useReducer:
+
+Used for more complex state management, similar to useState but for larger state objects or multiple state transitions. Often combined with useContext for global state management.
+
+Example:
+const initialState = { count: 0 };
+
+function reducer(state, action) {
+  switch (action.type) {
+    case 'increment':
+      return { count: state.count + 1 };
+    case 'decrement':
+      return { count: state.count - 1 };
+    default:
+      return state;
+  }
+}
+
+function Counter() {
+  const [state, dispatch] = useReducer(reducer, initialState);
+
+  return (
+    <div>
+      Count: {state.count}
+      <button onClick={() => dispatch({ type: 'increment' })}>+</button>
+      <button onClick={() => dispatch({ type: 'decrement' })}>-</button>
+    </div>
+  );
+}
+
+-------------------------------------------------------------------------------------
+
+Component Composition:
+Component Composition refers to building components by combining simpler ones. Instead of creating monolithic components, smaller, reusable components are composed together to achieve complex functionality.
+
+Example:
+
+
+function Button({ onClick, children }) {
+  return <button onClick={onClick}>{children}</button>;
+}
+
+function Modal({ title, content }) {
+  return (
+    <div className="modal">
+      <h2>{title}</h2>
+      <p>{content}</p>
+    </div>
+  );
+}
+
+function App() {
+  return (
+    <div>
+      <Button onClick={() => alert('Button clicked!')}>Click Me</Button>
+      <Modal title="Welcome!" content="This is a modal component." />
+    </div>
+  );
+}
