@@ -1,0 +1,263 @@
+1. Profile Card Component using JSX
+
+// ProfileCard.js
+import React, { useState } from 'react';
+import './ProfileCard.css';
+
+const ProfileCard = ({ name, age, location, bio }) => {
+  const [showMore, setShowMore] = useState(false);
+
+  return (
+    <div className="profile-card" style={inlineStyles.card}>
+      <h2>{name}</h2>
+      <p>Age: {age}</p>
+      <p>Location: {location}</p>
+      <p>{showMore ? bio : `${bio.substring(0, 50)}...`}</p>
+      <button onClick={() => setShowMore(!showMore)}>
+        {showMore ? 'Show Less' : 'Show More'}
+      </button>
+    </div>
+  );
+};
+
+const inlineStyles = {
+  card: {
+    border: '1px solid #ccc',
+    padding: '16px',
+    borderRadius: '8px',
+    maxWidth: '300px',
+    margin: '10px auto',
+  },
+};
+
+export default ProfileCard;
+
+// ProfileCard.css
+.profile-card {
+  background-color: #f9f9f9;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+------------------------------------------------------------------------------
+
+2. Blog Post Feed using Props
+
+// BlogFeed.js
+import React from 'react';
+import Post from './Post';
+
+const BlogFeed = () => {
+  const posts = [
+    { id: 1, title: 'React Basics', author: 'John', content: 'Lorem ipsum dolor sit amet...' },
+    { id: 2, title: 'Understanding Hooks', author: 'Jane', content: 'Hooks are a new addition to React...' }
+  ];
+
+  return (
+    <div>
+      {posts.map(post => (
+        <Post key={post.id} title={post.title} author={post.author} content={post.content} />
+      ))}
+    </div>
+  );
+};
+
+export default BlogFeed;
+
+// Post.js
+import React, { useState } from 'react';
+
+const Post = ({ title, author, content }) => {
+  const [showFullContent, setShowFullContent] = useState(false);
+
+  return (
+    <div className="post">
+      <h3>{title}</h3>
+      <p>By: {author}</p>
+      <p>{showFullContent ? content : `${content.substring(0, 100)}...`}</p>
+      <button onClick={() => setShowFullContent(!showFullContent)}>
+        {showFullContent ? 'Read Less' : 'Read More'}
+      </button>
+    </div>
+  );
+};
+
+export default Post;
+
+--------------------------------------------------------------------------------------------
+
+3. Counter Component using Class and Functional Components
+Class-based Counter:
+import React, { Component } from 'react';
+
+class Counter extends Component {
+  state = { count: 0 };
+
+  increment = () => this.setState({ count: this.state.count + 1 });
+  decrement = () => this.setState({ count: this.state.count - 1 });
+  reset = () => this.setState({ count: 0 });
+
+  render() {
+    return (
+      <div>
+        <h2>Count: {this.state.count}</h2>
+        <button onClick={this.increment}>Increment</button>
+        <button onClick={this.decrement}>Decrement</button>
+        <button onClick={this.reset}>Reset</button>
+      </div>
+    );
+  }
+}
+
+export default Counter;
+
+-------------------------------------------------------------------------------------------------------------------------
+
+Functional Counter with Hooks:
+
+import React, { useState } from 'react';
+
+const Counter = () => {
+  const [count, setCount] = useState(0);
+
+  return (
+    <div>
+      <h2>Count: {count}</h2>
+      <button onClick={() => setCount(count + 1)}>Increment</button>
+      <button onClick={() => setCount(count - 1)}>Decrement</button>
+      <button onClick={() => setCount(0)}>Reset</button>
+    </div>
+  );
+};
+
+export default Counter;
+
+-------------------------------------------------------------------------------------------------------------------------------
+
+4. Login System using Conditional Rendering
+
+
+import React, { useState } from 'react';
+
+const LoginSystem = () => {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+
+  const handleLogin = () => {
+    if (username && password) setIsLoggedIn(true);
+  };
+
+  const handleLogout = () => {
+    setIsLoggedIn(false);
+    setUsername('');
+    setPassword('');
+  };
+
+  return (
+    <div>
+      {isLoggedIn ? (
+        <>
+          <h2>Welcome, {username}!</h2>
+          <button onClick={handleLogout}>Logout</button>
+        </>
+      ) : (
+        <div>
+          <h2>Login</h2>
+          <input type="text" placeholder="Username" value={username} onChange={e => setUsername(e.target.value)} />
+          <input type="password" placeholder="Password" value={password} onChange={e => setPassword(e.target.value)} />
+          <button onClick={handleLogin}>Login</button>
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default LoginSystem;
+
+----------------------------------------------------------------------------------------------------------------------------------------------
+
+5. To-Do List using useState Hook
+
+import React, { useState } from 'react';
+
+const ToDoApp = () => {
+  const [tasks, setTasks] = useState([]);
+  const [newTask, setNewTask] = useState('');
+
+  const addTask = () => {
+    if (newTask) setTasks([...tasks, { text: newTask, completed: false }]);
+    setNewTask('');
+  };
+
+  const toggleTask = (index) => {
+    const updatedTasks = tasks.map((task, i) =>
+      i === index ? { ...task, completed: !task.completed } : task
+    );
+    setTasks(updatedTasks);
+  };
+
+  const removeTask = (index) => {
+    const updatedTasks = tasks.filter((_, i) => i !== index);
+    setTasks(updatedTasks);
+  };
+
+  return (
+    <div>
+      <h2>To-Do List</h2>
+      <input type="text" value={newTask} onChange={(e) => setNewTask(e.target.value)} />
+      <button onClick={addTask}>Add Task</button>
+      <ul>
+        {tasks.map((task, index) => (
+          <li key={index} style={{ textDecoration: task.completed ? 'line-through' : 'none' }}>
+            {task.text}
+            <button onClick={() => toggleTask(index)}>Toggle</button>
+            <button onClick={() => removeTask(index)}>Remove</button>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+};
+
+export default ToDoApp;
+
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Stretch Assignment: Dashboard
+
+import React, { useState } from 'react';
+import ProfileCard from './ProfileCard';
+import ToDoApp from './ToDoApp';
+import './Dashboard.css';
+
+const Dashboard = () => {
+  const [theme, setTheme] = useState('light');
+
+  const toggleTheme = () => {
+    setTheme((prevTheme) => (prevTheme === 'light' ? 'dark' : 'light'));
+  };
+
+  return (
+    <div className={`dashboard ${theme}`}>
+      <h1>Dashboard</h1>
+      <ProfileCard name="John Doe" age={30} location="New York" bio="Software Developer with a passion for learning." />
+      <ToDoApp />
+      <button onClick={toggleTheme}>
+        Switch to {theme === 'light' ? 'Dark' : 'Light'} Mode
+      </button>
+    </div>
+  );
+};
+
+export default Dashboard;
+
+// Dashboard.css
+.dashboard.light {
+  background-color: #fff;
+  color: #000;
+}
+
+.dashboard.dark {
+  background-color: #333;
+  color: #fff;
+}
