@@ -1,0 +1,30 @@
+1. Lifecycle Methods (Class Components) Task:
+Task: Create a simple blog post component that fetches post data from an API using componentDidMount(), updates when new data is received using componentDidUpdate(), and cleans up event listeners or subscriptions in componentWillUnmount().
+Details:
+Fetch blog post data from a dummy API (https://jsonplaceholder.typicode.com/posts/1) in componentDidMount().
+When the post ID prop changes, fetch the new post in componentDidUpdate().
+Log a message in componentWillUnmount() when the component is about to unmount.
+2. Hooks Task (useState and useEffect):
+Task: Build a countdown timer using useState and useEffect.
+Details:
+Use useState to store the time remaining and create a button to start the timer.
+Use useEffect to handle the countdown logic.
+Display a "Time’s up!" message when the timer reaches zero.
+3. Hooks Task (useContext):
+Task: Create a theme switcher using useContext to manage a dark and light theme.
+Details:
+Create a context to store the current theme (light or dark).
+Use the useContext hook to toggle between themes when a button is clicked.
+Apply the theme styles dynamically to the component based on the current theme.
+4. Hooks Task (useReducer):
+Task: Build a simple task management system using useReducer.
+Details:
+The system should allow adding, deleting, and toggling tasks as completed.
+Use useReducer to manage the list of tasks and their states.
+Implement actions such as "add task", "delete task", and "toggle task completion."
+5. Component Composition Task:
+Task: Build a multi-step form with reusable components.
+Details:
+Create separate form components for each step (e.g., personal details, address, payment).
+Combine them into a parent component that controls the form’s navigation (Next/Previous).
+Each step should validate input before allowing the user to proceed to the next.
