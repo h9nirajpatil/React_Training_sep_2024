@@ -1,0 +1,317 @@
+1. Lifecycle Methods (Class Components) Task: Blog Post Component
+import React from 'react';
+
+class BlogPost extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      post: null,
+    };
+  }
+
+  // Fetch the post data when the component is mounted
+  componentDidMount() {
+    this.fetchPostData(this.props.postId);
+  }
+
+  // Fetch new post data if postId prop changes
+  componentDidUpdate(prevProps) {
+    if (prevProps.postId !== this.props.postId) {
+      this.fetchPostData(this.props.postId);
+    }
+  }
+
+  // Clean up any resources (like event listeners or intervals) when unmounted
+  componentWillUnmount() {
+    console.log('Component is about to unmount');
+  }
+
+  fetchPostData(postId) {
+    fetch(`https://jsonplaceholder.typicode.com/posts/${postId}`)
+      .then((response) => response.json())
+      .then((data) => this.setState({ post: data }))
+      .catch((error) => console.error('Error fetching post:', error));
+  }
+
+  render() {
+    const { post } = this.state;
+    return (
+      <div>
+        {post ? (
+          <>
+            <h2>{post.title}</h2>
+            <p>{post.body}</p>
+          </>
+        ) : (
+          <p>Loading post...</p>
+        )}
+      </div>
+    );
+  }
+}
+
+export default BlogPost;
+-----------------------------------------------------------------------------------------------
+
+2. Hooks Task (useState and useEffect): Countdown Timer
+import React, { useState, useEffect } from 'react';
+
+function CountdownTimer() {
+  const [timeLeft, setTimeLeft] = useState(10); // Initialize timer with 10 seconds
+  const [isRunning, setIsRunning] = useState(false);
+
+  useEffect(() => {
+    let timer;
+    if (isRunning && timeLeft > 0) {
+      timer = setTimeout(() => setTimeLeft(timeLeft - 1), 1000);
+    } else if (timeLeft === 0) {
+      setIsRunning(false);
+    }
+
+    return () => clearTimeout(timer); // Clean up on unmount or when timeLeft changes
+  }, [isRunning, timeLeft]);
+
+  const startTimer = () => {
+    if (!isRunning) {
+      setIsRunning(true);
+    }
+  };
+
+  return (
+    <div>
+      <h1>{timeLeft > 0 ? timeLeft : "Time’s up!"}</h1>
+      <button onClick={startTimer} disabled={isRunning}>
+        Start Countdown
+      </button>
+    </div>
+  );
+}
+
+export default CountdownTimer;
+--------------------------------------------------------------------------------------------------------
+
+3. Hooks Task (useContext): Theme Switcher
+import React, { useContext, useState } from 'react';
+
+// Create a context for the theme
+const ThemeContext = React.createContext();
+
+function ThemeProvider({ children }) {
+  const [theme, setTheme] = useState('light');
+
+  const toggleTheme = () => {
+    setTheme((prevTheme) => (prevTheme === 'light' ? 'dark' : 'light'));
+  };
+
+  return (
+    <ThemeContext.Provider value={{ theme, toggleTheme }}>
+      {children}
+    </ThemeContext.Provider>
+  );
+}
+
+function ThemedComponent() {
+  const { theme, toggleTheme } = useContext(ThemeContext);
+
+  const styles = {
+    backgroundColor: theme === 'light' ? '#fff' : '#333',
+    color: theme === 'light' ? '#000' : '#fff',
+    padding: '20px',
+    textAlign: 'center',
+  };
+
+  return (
+    <div style={styles}>
+      <p>The current theme is {theme}</p>
+      <button onClick={toggleTheme}>Toggle Theme</button>
+    </div>
+  );
+}
+
+function App() {
+  return (
+    <ThemeProvider>
+      <ThemedComponent />
+    </ThemeProvider>
+  );
+}
+
+export default App;
+------------------------------------------------------------------------------------------------------------
+
+4. Hooks Task (useReducer): Task Management System
+import React, { useReducer, useState } from 'react';
+
+// Define actions
+const ACTIONS = {
+  ADD_TASK: 'add-task',
+  TOGGLE_TASK: 'toggle-task',
+  DELETE_TASK: 'delete-task',
+};
+
+// Reducer function to manage tasks
+function reducer(state, action) {
+  switch (action.type) {
+    case ACTIONS.ADD_TASK:
+      return [...state, newTask(action.payload.name)];
+    case ACTIONS.TOGGLE_TASK:
+      return state.map((task) =>
+        task.id === action.payload.id ? { ...task, completed: !task.completed } : task
+      );
+    case ACTIONS.DELETE_TASK:
+      return state.filter((task) => task.id !== action.payload.id);
+    default:
+      return state;
+  }
+}
+
+function newTask(name) {
+  return { id: Date.now(), name: name, completed: false };
+}
+
+function Task({ task, dispatch }) {
+  return (
+    <div>
+      <span style={{ textDecoration: task.completed ? 'line-through' : 'none' }}>
+        {task.name}
+      </span>
+      <button onClick={() => dispatch({ type: ACTIONS.TOGGLE_TASK, payload: { id: task.id } })}>
+        Toggle
+      </button>
+      <button onClick={() => dispatch({ type: ACTIONS.DELETE_TASK, payload: { id: task.id } })}>
+        Delete
+      </button>
+    </div>
+  );
+}
+
+function TaskManager() {
+  const [tasks, dispatch] = useReducer(reducer, []);
+  const [name, setName] = useState('');
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    dispatch({ type: ACTIONS.ADD_TASK, payload: { name: name } });
+    setName('');
+  };
+
+  return (
+    <div>
+      <form onSubmit={handleSubmit}>
+        <input
+          type="text"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          placeholder="New task"
+        />
+        <button type="submit">Add Task</button>
+      </form>
+
+      <div>
+        {tasks.map((task) => (
+          <Task key={task.id} task={task} dispatch={dispatch} />
+        ))}
+      </div>
+    </div>
+  );
+}
+
+export default TaskManager;
+----------------------------------------------------------------------------------------------------------------
+
+5. Component Composition Task: Multi-Step Form
+import React, { useState } from 'react';
+
+// Personal details component
+function PersonalDetails({ nextStep, handleChange, formData }) {
+  return (
+    <div>
+      <h2>Personal Details</h2>
+      <input
+        type="text"
+        placeholder="Name"
+        value={formData.name}
+        onChange={(e) => handleChange('name', e.target.value)}
+      />
+      <input
+        type="email"
+        placeholder="Email"
+        value={formData.email}
+        onChange={(e) => handleChange('email', e.target.value)}
+      />
+      <button onClick={nextStep}>Next</button>
+    </div>
+  );
+}
+
+// Address component
+function Address({ nextStep, prevStep, handleChange, formData }) {
+  return (
+    <div>
+      <h2>Address</h2>
+      <input
+        type="text"
+        placeholder="Street"
+        value={formData.street}
+        onChange={(e) => handleChange('street', e.target.value)}
+      />
+      <input
+        type="text"
+        placeholder="City"
+        value={formData.city}
+        onChange={(e) => handleChange('city', e.target.value)}
+      />
+      <button onClick={prevStep}>Previous</button>
+      <button onClick={nextStep}>Next</button>
+    </div>
+  );
+}
+
+// Payment component
+function Payment({ prevStep, formData }) {
+  return (
+    <div>
+      <h2>Payment</h2>
+      <p>Confirm details:</p>
+      <pre>{JSON.stringify(formData, null, 2)}</pre>
+      <button onClick={prevStep}>Previous</button>
+      <button>Submit</button>
+    </div>
+  );
+}
+
+// Main form component to manage steps
+function MultiStepForm() {
+  const [step, setStep] = useState(1);
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    street: '',
+    city: '',
+  });
+
+  const nextStep = () => setStep(step + 1);
+  const prevStep = () => setStep(step - 1);
+
+  const handleChange = (input, value) => {
+    setFormData((prevData) => ({
+      ...prevData,
+      [input]: value,
+    }));
+  };
+
+  switch (step) {
+    case 1:
+      return <PersonalDetails nextStep={nextStep} handleChange={handleChange} formData={formData} />;
+    case 2:
+      return <Address nextStep={nextStep} prevStep={prevStep} handleChange={handleChange} formData={formData} />;
+    case 3:
+      return <Payment prevStep={prevStep} formData={formData} />;
+    default:
+      return <div>Form complete</div>;
+  }
+}
+
+export default MultiStepForm;
+-----------------------------------------------------------------------------------------------------------------------------------
+

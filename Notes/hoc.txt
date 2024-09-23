@@ -1,0 +1,128 @@
+1. Higher-Order Components (HOC)
+A Higher-Order Component (HOC) is a function that takes a component and returns a new component. It’s a pattern for reusing component logic. HOCs allow us to share common logic between components without repeating code.
+
+Example: Logging Props with an HOC
+
+import React from 'react';
+
+// HOC that logs the props passed to a component
+function withLogging(WrappedComponent) {
+  return function(props) {
+    console.log('Props:', props);
+    return <WrappedComponent {...props} />;
+  };
+}
+
+// Regular component
+function HelloComponent(props) {
+  return <h1>Hello, {props.name}!</h1>;
+}
+
+// Using the HOC
+const HelloWithLogging = withLogging(HelloComponent);
+
+function App() {
+  return <HelloWithLogging name="Niraj" />;
+}
+
+withLogging HOC: This takes a component (HelloComponent) and returns a new component that logs the props before rendering the original component.
+Usage: In the App component, we render HelloWithLogging, which uses the HOC to log props before rendering.
+
+export default App;
+
+------------------------------------------------------------------------------------------------
+
+2. Render Props
+Render Props is a pattern where a function is passed as a prop to a component, and that function determines what the component renders. It’s used to share code logic between components without inheritance or HOCs.
+
+Example: Mouse Position Tracker with Render Props
+
+import React from 'react';
+
+// Component that provides mouse position using render props
+class MouseTracker extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { x: 0, y: 0 };
+  }
+
+  handleMouseMove = (event) => {
+    this.setState({
+      x: event.clientX,
+      y: event.clientY
+    });
+  };
+
+  render() {
+    return (
+      <div style={{ height: '100vh' }} onMouseMove={this.handleMouseMove}>
+        {/* Calling the render function passed as a prop */}
+        {this.props.render(this.state)}
+      </div>
+    );
+  }
+}
+
+// Usage of render prop
+function App() {
+  return (
+    <MouseTracker
+      render={(mouse) => (
+        <h1>Mouse position: {mouse.x}, {mouse.y}</h1>
+      )}
+    />
+  );
+}
+
+export default App;
+
+MouseTracker Component: This component tracks the mouse position and uses a render prop (this.props.render) to display the mouse coordinates.
+Usage: In the App component, we pass a function to the render prop, which returns how the mouse position should be displayed.
+
+-------------------------------------------------------------------------------------------------------------
+
+3. Children Prop
+The Children Prop is a special prop that allows you to pass components or elements as children to a component. It’s useful when you want to pass custom content inside a component.
+
+Example: Modal with Children Prop
+
+import React from 'react';
+
+// Modal component that renders its children
+function Modal({ title, children }) {
+  return (
+    <div style={{ border: '1px solid black', padding: '10px' }}>
+      <h2>{title}</h2>
+      <div>{children}</div>
+    </div>
+  );
+}
+
+// Usage of the Modal component
+function App() {
+  return (
+    <div>
+      <Modal title="Welcome">
+        <p>This is the content inside the modal.</p>
+        <button>Close</button>
+      </Modal>
+    </div>
+  );
+}
+
+export default App;
+
+Modal Component: It receives a title and renders whatever is passed as children inside the div. This allows the modal to be flexible in what it contains.
+Usage: In the App component, we pass a p tag and a button as children inside the Modal.
+
+------------------------------------------------------------------------------------------------
+
+Higher-Order Components (HOC): A function that takes a component and returns a new component with enhanced behavior or logic. Useful for reusing logic across multiple components.
+
+Example: Logging props with withLogging.
+Render Props: A technique for sharing code between components using a prop that’s a function. It allows the parent to control what gets rendered inside a component.
+
+Example: Mouse tracking with MouseTracker.
+Children Prop: A way to pass components or elements as children, allowing for flexible and reusable components.
+
+Example: A Modal component that renders whatever is passed as children.

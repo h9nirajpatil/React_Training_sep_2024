@@ -52,11 +52,14 @@ Component Composition:
 Higher-Order Components (HOC): Reuse component logic.
 Render Props: Share code between React components using a prop that is a function.
 Children Prop: Passing components as children.
+
+
 4. React Router
 React Router: Handling navigation and routing within React apps.
 BrowserRouter, Route, Switch.
 Dynamic routing with Route parameters.
 Programmatically navigating with useHistory() or useNavigate() (React Router v6).
+
 5. State Management
 As your application grows, managing the state becomes critical. Explore these tools to handle application-wide state:
 
@@ -68,6 +71,8 @@ Core concepts: Store, Actions, Reducers.
 Redux Thunk for handling async operations.
 Zustand / Recoil (Optional):
 Modern, simpler alternatives to Redux for state management.
+
+
 6. Form Handling
 Handling forms is a key part of building any web application.
 
@@ -75,6 +80,8 @@ Controlled Components: Managing form inputs with state.
 Uncontrolled Components: Working with refs.
 Form Libraries (Optional):
 Formik or React Hook Form: Libraries to handle forms efficiently.
+
+
 7. API Integration (Fetching Data)
 Learn how to communicate with external APIs to fetch or send data.
 
@@ -82,6 +89,8 @@ Fetch API or Axios: HTTP requests to APIs.
 Handling async data: Using useEffect for API calls.
 Error handling and loading states in API requests.
 GraphQL (Optional): Fetching data using GraphQL (Apollo Client).
+
+
 8. Optimizing React Apps
 Once you've built a few apps, learn how to optimize them for better performance.
 
@@ -89,6 +98,8 @@ React.memo: Memoizing components to prevent unnecessary re-renders.
 useCallback and useMemo: Optimizing functions and values.
 Lazy Loading and React.Suspense: Loading components on demand (Code splitting).
 Error Boundaries: Handling errors in components.
+
+
 9. Styling in React
 React offers different ways to style your components. Learn different methods and choose the one that fits your project needs:
 
@@ -96,12 +107,16 @@ CSS Modules: Scoped CSS files for components.
 Styled Components: Write CSS within JavaScript.
 Sass/Less: CSS pre-processors with additional features.
 Tailwind CSS: Utility-first CSS framework (Optional).
+
+
 10. Testing
 Testing ensures the correctness of your application.
 
 Unit Testing: Using Jest and React Testing Library for testing components.
 Integration Testing: Test how components work together.
 End-to-End (E2E) Testing: Using Cypress or Puppeteer for testing the entire application flow.
+
+
 11. Building & Deployment
 Finally, learn how to build and deploy React applications.
 
@@ -111,6 +126,7 @@ Understanding Webpack and Babel.
 Deployment:
 Deploying on platforms like Netlify, Vercel, GitHub Pages, or traditional hosting.
 Continuous Integration/Deployment (CI/CD) pipelines (Optional).
+
 12. TypeScript with React (Optional, but highly recommended)
 Learn how to use TypeScript for type-safe coding in React.
 TypeScript with React for better development experience and fewer runtime errors.
